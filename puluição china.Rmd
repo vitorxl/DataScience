@@ -1,0 +1,75 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(vegan)
+library(caret)
+polut = read.csv("~/Downloads/changping.csv", header = TRUE, sep=",")
+polut
+```
+```{r}
+features = c("PM2.5", "PM10", "SO2", "NO2", "CO", "O3", "TEMP", "PRES", "DEWP", "RAIN", "WSPM")
+polut = polut[features]
+polut
+```
+```{r}
+summary(polut)
+```
+
+```{r}
+polut = na.omit(polut)
+summary(polut)
+```
+```{r}
+biplot(rda(polut, scale = TRUE, arrow.len = 1), display="sp", type="t")
+```
+```{r}
+cor(polut)
+```
+```{r}
+library(corrplot)
+corrplot.mixed(cor(polut))
+```
+
+
+
+```{r}
+library("PerformanceAnalytics")
+chart.Correlation(polut, histogram = TRUE, pch=19)
+```
+```{r}
+summary(lm(PM2.5 ~ TEMP+PRES+WSPM+NO2+CO+SO2, data = polut))
+```
+```{r}
+plot(polut$PM2.5 ~ polut$CO)
+abline(lm(polut$PM2.5 ~ polut$CO), col="red")
+```
+
+```{r}
+library(car)
+vif(lm(PM2.5 ~ WSPM+NO2+CO+SO2, data = polut))
+```
+
+```{r}
+validation_index <- createDataPartition(polut$PM2.5, p=0.80, list = FALSE)
+validation <- polut[-validation_index,]
+polut <- polut[validation_index,]
+```
+
+```{r}
+polut
+```
+```{r}
+control = trainControl(method = "cv", number = 10)
+metric = "accuracy"
+```
+```{r}
+fit.cart <- train(polut[2:10], polut$PM2.5, method = "rpart", metric="Rsquared", trControl=control)
+```
+
+```{r}
+fit.cart
+```
+
+
