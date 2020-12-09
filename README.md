@@ -9,3 +9,4 @@ Data Visualization
 Machine Learning
 - [Detecção precoce de diabetes usando decision tree - Python](https://github.com/vitorxl/DataScience/blob/main/UCI%20Diabetes%20ML.ipynb)
 - [Preditor de poluentes atmosféricos (em andamento) - R](https://github.com/vitorxl/DataScience/blob/main/pului%C3%A7%C3%A3o%20china.nb.html)
+- [Preditor do valor de aluguel de apartamentos no Brasil (em andamento) - Python](https://github.com/vitorxl/DataScience/blob/main/Aluguel%20de%20casas%20Brasil.ipynb)
